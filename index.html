@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Календарь</title>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <div class="header-content">
+          <div class="btn-group">
+            <button id="add-task-btn">Добавить</button>
+            <button id="refresh-task-list">Обновить</button>
+          </div>
+          <div class="serch-form">
+            <input id="search-input" type="text" placeholder="Событие, дата, участник">
+          </div>
+        </div>
+      </header>
+      <div id="content">
+        <div class="content-main">
+          <div class="change-date">
+            <button id="prev-month"></button>
+            <span id="current-month">Март 2013</span>
+            <button id="next-month"></button>
+            <button id="today">Сегодня</button>
+          </div>
+          <table id="calendar-table">
+            <tr>
+              <td>
+                <span class="weekday">Понедельник,</span>
+                <span class="day">25</span>
+              </td>
+              <td>
+                <span class="weekday">Вторник,</span>
+                <span class="day">26</span>
+              </td>
+              <td>
+                <span class="weekday">Среда,</span>
+                <span class="day">27</span>
+              </td>
+              <td>
+                <span class="weekday">Четверг,</span>
+                <span class="day">28</span>
+              </td>
+              <td>
+                <span class="weekday">Пятница,</span>
+                <span class="day">1</span>
+              </td>
+              <td class="today has-tasks">
+                <span class="weekday">Суббота,</span>
+                <span class="day">2</span>
+              </td>
+              <td>
+                <span class="weekday">Воскресенье,</span>
+                <span class="day">3</span>
+              </td>
+            </tr>
+            <tr>
+              <td><span class="day">4</span>
+              </td>
+              <td><span class="day">5</span></td>
+              <td><span class="day">6</span></td>
+              <td><span class="day">7</span></td>
+              <td><span class="day">8</span></td>
+              <td class="has-tasks">
+                <span class="day">9</span>
+                <div class="task">
+                  <p><strong>Напиться!</strong><br>Витя Костин, Петр Михайлов</p>
+                </div>
+              </td>
+              <td><span class="day">10</span></td>
+            </tr>
+            <tr>
+              <td><span class="day">11</span></td>
+              <td><span class="day">12</span></td>
+              <td><span class="day">13</span></td>
+              <td><span class="day">14</span></td>
+              <td><span class="day">15</span></td>
+              <td><span class="day">16</span></td>
+              <td><span class="day">17</span></td>
+            </tr>
+            <tr>
+              <td><span class="day">18</span></td>
+              <td><span class="day">19</span></td>
+              <td><span class="day">20</span></td>
+              <td><span class="day">21</span></td>
+              <td class="has-tasks">
+                <span class="day">22</span>
+                <div class="task">
+                  <p><strong>ДР!</strong><br>Дима Молодцов</p>
+                </div>
+              </td>
+              <td><span class="day">23</span></td>
+              <td><span class="day">24</span></td>
+            </tr>
+            <tr>
+              <td><span class="day">25</span></td>
+              <td><span class="day">26</span></td>
+              <td><span class="day">27</span></td>
+              <td><span class="day">28</span></td>
+              <td><span class="day">29</span></td>
+              <td><span class="day">30</span></td>
+              <td><span class="day">31</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

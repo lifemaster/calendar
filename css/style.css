@@ -1,0 +1,218 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*:focus {
+  outline: none;
+  border: none;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Lucida, Tahoma, Arial, sans-serif;
+  color: #333333;
+}
+button {
+  border: none;
+  background: transparent;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  border: none;
+}
+button:focus {
+  outline: none;
+}
+#wrapper {
+  min-width: 768px;
+}
+header {
+  background: #f4f4f4;
+  padding: 50px 20px 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+header .header-content {
+  width: 1360px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+header .header-content .btn-group {
+  float: left;
+}
+header .header-content .btn-group button {
+  height: 40px;
+  padding: 10px;
+  background: #0271c7;
+  font-size: 14px;
+  color: #FFF;
+  -webkit-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  transition: background 0.2s;
+}
+header .header-content .btn-group button + button {
+  margin-left: 10px;
+}
+header .header-content .btn-group button:hover {
+  background: #037ae9;
+  -webkit-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  transition: background 0.2s;
+}
+header .header-content .serch-form {
+  float: right;
+}
+header .header-content .serch-form::before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  vertical-align: middle;
+  background: url("../images/icons.png") no-repeat 0 0;
+}
+header .header-content .serch-form input[type=text] {
+  width: 220px;
+  height: 40px;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) inset, -1px -1px 2px rgba(0, 0, 0, 0.3) inset;
+  font-family: inherit;
+  font-size: 14px;
+}
+#content {
+  padding: 20px 20px 50px;
+}
+#content .content-main {
+  width: 1360px;
+  margin: 0 auto;
+}
+#content .content-main .change-date {
+  margin-bottom: 20px;
+}
+#content .content-main .change-date button {
+  height: 30px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset, -1px -1px 2px rgba(0, 0, 0, 0.2) inset;
+  font-size: 13px;
+  vertical-align: middle;
+  -webkit-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  transition: background 0.2s;
+}
+#content .content-main .change-date button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  -webkit-transition: background 0.2s;
+  -o-transition: background 0.2s;
+  -moz-transition: background 0.2s;
+  transition: background 0.2s;
+}
+#content .content-main .change-date button:last-child {
+  margin-left: 5px;
+}
+#content .content-main .change-date button#prev-month,
+#content .content-main .change-date button#next-month {
+  width: 30px;
+}
+#content .content-main .change-date button#prev-month::before,
+#content .content-main .change-date button#next-month::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: url("../images/icons.png") no-repeat;
+}
+#content .content-main .change-date button#prev-month::before {
+  background-position: -34px 0;
+}
+#content .content-main .change-date button#next-month::before {
+  background-position: -34px -17px;
+}
+#content .content-main .change-date span {
+  margin: 0 5px;
+  vertical-align: middle;
+  font-size: 20px;
+}
+#content .content-main table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+#content .content-main table td {
+  height: 160px;
+  padding: 10px;
+  border: 1px solid #eeeeee;
+  font-size: 14px;
+  color: #A9A9A9;
+  vertical-align: top;
+  overflow: hidden;
+}
+#content .content-main table td.has-tasks {
+  background: #C2E4FE;
+}
+#content .content-main table td.has-tasks p {
+  margin: 5px 0 0;
+  line-height: 1.5;
+  color: #676868;
+}
+#content .content-main table td.today {
+  background: #F4F4F4;
+}
+#content .content-main table td.today > span {
+  font-weight: bold;
+}
+@media only screen and (max-width: 1440px) {
+  header .header-content {
+    width: 984px;
+  }
+  #content .content-main {
+    width: 984px;
+  }
+  #content .content-main table td {
+    height: 140px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  header .header-content {
+    width: 728px;
+  }
+  header .header-content .btn-group button {
+    height: 30px;
+    padding: 5px;
+    font-size: 12px;
+  }
+  header .header-content .serch-form input[type=text] {
+    width: 180px;
+    height: 30px;
+    font-size: 12px;
+  }
+  #content .content-main {
+    width: 728px;
+  }
+  #content .content-main .change-date {
+    margin-bottom: 20px;
+  }
+  #content .content-main .change-date button {
+    height: 25px;
+    font-size: 12px;
+  }
+  #content .content-main .change-date span {
+    margin: 0 5px;
+    vertical-align: middle;
+    font-size: 16px;
+  }
+  #content .content-main table td {
+    height: 100px;
+    padding: 5px;
+    font-size: 10px;
+  }
+}
