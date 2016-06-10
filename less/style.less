@@ -17,7 +17,8 @@ body {
   color: @main-text-color;
 }
 
-button {
+
+button, input[type=submit] {
   border: none;
   background: transparent;
   border-radius: 3px;
@@ -29,6 +30,95 @@ button {
   }
   &:focus {
     outline: none;
+  }
+}
+
+#shadow {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+#add-task-popup {
+  width: 600px;
+  .centerPosition(absolute);
+  z-index: 1;
+  border: 1px solid #666;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  background: #FFF;
+  h3 {
+    margin: 0;
+    padding: 15px 0;
+    background: @header-buttons-bg;
+    font-size: 18px;
+    font-weight: normal;
+    color: #FFF;
+    text-align: center;
+  }
+}
+
+form#add-task-form {
+  padding: 20px;
+  input[type=text],
+  textarea {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #A2A2A2;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 14px;
+    .transition(box-shadow .2s);
+    &.error {
+      border-color: lightcoral;
+      box-shadow: 0 0 5px lightcoral;
+      .transition(box-shadow .2s);
+    }
+    &:focus {
+      border-color: #66afe9;
+      box-shadow: 0 0 5px #66afe9;
+      .transition(box-shadow .2s);
+    }
+  }
+  input {
+    &[type=text] {
+      margin-bottom: 15px;
+      &:first-child {
+        width: 210px;
+      }
+    }
+    &[type=submit] {
+      padding: 10px;
+      border: none;
+      background: #35ac19;
+      font-family: inherit;
+      font-size: 16px;
+      color: #FFF;
+      &:hover {
+        background: #2E9D17;
+      }
+    }
+  }
+  textarea {
+    height: 200px;
+    resize: none;
+  }
+  .buttons {
+    margin-top: 15px;
+    text-align: center;
+    span {
+      display: inline-block;
+      margin-left: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      background: #d14836;
+      color: #FFF;
+      cursor: pointer;
+      &:hover {
+        background: #c53727;
+      }
+    }
   }
 }
 
@@ -82,6 +172,11 @@ header {
         box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3) inset, -1px -1px 2px rgba(0, 0, 0, 0.3) inset;
         font-family: inherit;
         font-size: 14px;
+        .transition(box-shadow .2s);
+        &:focus {
+          box-shadow:1px 1px 2px #66afe9 inset, -1px -1px 2px #66afe9 inset;
+          .transition(box-shadow .2s);
+        }
       }
     }
   }
@@ -184,6 +279,28 @@ header {
 }
 
 @media only screen and (max-width: 1024px) {
+  #add-task-popup {
+    h3 {
+      font-size: 16px;
+    }
+    form {
+      input[type=text],
+      input[type=date],
+      textarea {
+        font-size: 12px;
+      }
+      input {
+        &[type=submit] {
+          font-size: 14px;
+        }
+      }
+      .buttons {
+        span {
+          font-size: 14px;
+        }
+      }
+    }
+  }
   header {
     .header-content {
       width: 728px;

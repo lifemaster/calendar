@@ -1,15 +1,14 @@
-/* Конструктор календаря */
 function Calendar() {
-  // Объект текущей даты
+  // object of current date
   var now = new Date();
 
-  // Объект отображаемой даты
+  // date object for view
   var dateForShowObj = new Date();
 
-  // Таблица календаря
+  // calendar table
   var calendarTable = document.getElementById('calendar-table');
 
-  // Массивы названий месяцев
+  // array of month names
   var monthNames = [
     'Январь',
     'Февраль',
@@ -25,7 +24,7 @@ function Calendar() {
     'Декабрь'
   ];
 
-  // Массивы названий дней недели
+  // array of weekday names
   var weekdays = [
     'Понедельник',
     'Вторник',
@@ -36,51 +35,56 @@ function Calendar() {
     'Воскресенье'
   ];
 
-  // возвращает количество дней в месяце из объекта даты
+  // get days count in month from date object
   function getDaysCount(dateObj) {
     var year = dateObj.getFullYear();
     var month = dateObj.getMonth();
     return new Date(new Date(year, month + 1).setDate(0)).getDate();
   }
 
-  // метод установки дней и событий в календаре (движок календаря)
+  // added length limit method to String prototype
+  String.prototype.limit = function(count) {
+    if(this.length <= count) return this;
+    return this.slice(0, count) + '...';
+  }
+
+  // calendar initialize - add day count and event handlers (calendar engine)
   this.init = function () {
-    // номера месяца и года из объекта даты для показа
+    // month and year numbers from object date for show
     var month = dateForShowObj.getMonth();
     var year  = dateForShowObj.getFullYear();
 
-    // установка месяца и года
+    // view month name and year
     document.getElementById('current-month').innerHTML = monthNames[month] + ' ' + year;
 
-    // Объект первого дня месяца
+    // first day of month date object
     var firstDayOfMonthObj = new Date(year, month, 1);
 
-    // смещение даты первого дня месяца до того числа прошлого месяца,
-    // которое будет отображаться первым понедельником в таблице календаря
+    // offset first day of month
     var offsetDate = (firstDayOfMonthObj.getDay() == 0)
     ? firstDayOfMonthObj.getDate() - 6
     : firstDayOfMonthObj.getDate() - firstDayOfMonthObj.getDay() + 1;
 
     firstDayOfMonthObj.setDate(offsetDate);
 
-    // количество дней в месяце
+    // days count in month
     var daysCount = getDaysCount(dateForShowObj);
 
-    // количество последних дней прошлого месяца
+    // last days count of previous month
     var lastMonthDaysCount = Math.abs(offsetDate - 1);
 
-    // вычисляем необходимое количество рядов и ячеек в таблице
+    // calculate rows and cells count for calendar table
     var calendarTableRowsCount = Math.ceil((daysCount + lastMonthDaysCount) / 7)
     var calendarTableCellsCount = calendarTableRowsCount * 7;
 
-    // подготовка пустого контента таблицы календаря
+    // prepare table content
     var tableContent = '';
     for(var i=0; i<calendarTableRowsCount; i++) {
       tableContent += '<tr>';
       for(var j=0; j<7; j++) {
         tableContent += '<td data-month="' + month + '" data-year="' + year + '">';
 
-        // в первой строке таблицы добавляем ячейкам названия дней недели
+        // inset weekday names to first row
         if(i == 0) {
           tableContent += '<span class="weekday">' + weekdays[j] + ', </span>';
         }
@@ -90,21 +94,21 @@ function Calendar() {
       tableContent += '</tr>';
     }
 
-    // создаем таблицу календаря
+    // apply table content
     calendarTable.innerHTML = tableContent;
 
-    // коллекция элементов календаря для вставки номеров дней
+    // collection of calendar items for inserting numbers of days
     var daysSpan = document.getElementById('calendar-table').querySelectorAll('.day');
 
-    // заполняем календарь днями и событиями
+    // add day numbers and planned tasks to calendar table
     for(var i=0; i<calendarTableCellsCount; i++) {
-      // Устанавливаем в DOM номера дней месяца
+      // insert day numbers into DOM
       daysSpan[i].innerHTML = firstDayOfMonthObj.getDate();
 
-      // затем переводим объект даты на день вперед
+      // change date object for the one day ahead
       firstDayOfMonthObj.setDate(firstDayOfMonthObj.getDate() + 1);
 
-      // выделение текущего дня
+      // select current day
       var isCurrentDay = firstDayOfMonthObj.getDate() == now.getDate()
       && firstDayOfMonthObj.getMonth() == now.getMonth()
       && firstDayOfMonthObj.getFullYear() == now.getFullYear();
@@ -114,28 +118,72 @@ function Calendar() {
       }
     }
 
-    // обновляем список запланированных заданий
+    // refresh planned task list
     this.refresh();
   }
 
-  // обновление списка запланированных заданий
+  // refresh planned task list
   this.refresh = function() {
-    // ... code
+    var storageData = JSON.parse(localStorage.getItem('tasksList'));
+    if(Array.isArray(storageData)) {
+
+      if(!storageData.length) return;
+
+      var tableCells = calendarTable.querySelectorAll('td');
+      var dataYear, dataMonth, day, displayMessage,
+      storageDataMembers, storageDataDescription, task;
+
+      for(var i=0; i<tableCells.length; i++) {
+
+        dataYear = tableCells[i].getAttribute('data-year');
+        dataMonth = tableCells[i].getAttribute('data-month');
+        day = tableCells[i].querySelector('span.day').textContent;
+
+        if(tableCells[i].classList.contains('has-tasks')) {
+          tableCells[i].classList.remove('has-tasks');
+        }
+
+        if(tableCells[i].querySelector('.task')) {
+          var existTasks = tableCells[i].querySelectorAll('.task');
+          existTasks.forEach = [].forEach;
+          existTasks.forEach(function(task) {
+            task.remove();
+          });
+        }
+
+        for(var j=0; j<storageData.length; j++) {
+          if(storageData[j].year == dataYear
+            && storageData[j].month == dataMonth
+            && storageData[j].day == day) {
+
+            tableCells[i].classList.add('has-tasks');
+
+            storageDataMembers = storageData[j].members.join(', ').limit(30);
+            storageDataDescription = storageData[j].description.limit(25);
+
+            task = document.createElement('div');
+            task.classList.add('task');
+            task.innerHTML = '<p><strong>' + storageDataDescription + '</strong><br>' + storageDataMembers + '</p>';
+            tableCells[i].appendChild(task);
+          }
+        }
+      }
+    }
   }
 
-  // смещение на месяц назад
+  // offset a month ago
   this.prevMonth = function() {
     dateForShowObj.setMonth(dateForShowObj.getMonth() - 1);
     this.init();
   }
 
-  // смещение на месяц вперед
+  // offset to a month in advance
   this.nextMonth = function() {
     dateForShowObj.setMonth(dateForShowObj.getMonth() + 1);
     this.init();
   }
 
-  // установка актуального месяца
+  // set curent month
   this.today = function() {
     now = new Date();
     dateForShowObj = new Date();
