@@ -119,29 +119,22 @@ function AddTaskPopup() {
 
   // validation date format 'dd.mm.yyyy'
   function isValidDate(dateString) {
-    var dateToArray = dateString.split('.');
-    var year = dateToArray[2];
-    var month = parseInt(dateToArray[1] - 1);
-    var day = parseInt(dateToArray[0]);
+    var arrDate = dateString.split('.');
+    var year = arrDate[2];
+    var month = parseInt(arrDate[1]) - 1;
+    var day = parseInt(arrDate[0]);
+
     var dateObj = new Date(year, month, day);
 
     if(isNaN(dateObj)) return false;
 
     var resultYear = dateObj.getFullYear();
-
-    var resultMonth = dateObj.getMonth() + 1;
-    resultMonth = (resultMonth < 10)
-    ? '0' + resultMonth
-    : resultMonth;
-
+    var resultMonth = dateObj.getMonth();
     var resultDay = dateObj.getDate();
-    resultDay = (resultDay < 10)
-    ? '0' + resultDay
-    : resultDay;
 
-    var resultFullDate = resultDay + '.' + resultMonth + '.' + resultYear;
-
-    if(resultFullDate === dateString) return dateObj;
+    if(year == resultYear && month == resultMonth && day == resultDay) {
+      return dateObj;
+    }
 
     return false;
   }
